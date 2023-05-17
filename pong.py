@@ -51,44 +51,44 @@ pen.write("Player A: 0  Player B: 0", align="center", font=("Courier", 18, "norm
 
 
 # Functions
-def paddle_a_up():
-    y = paddle_a.ycor()
-    y += 20
-    if (y > 240):
-        paddle_a.sety(240)
+def paddle_up(paddle):
+    if (paddle == 1):
+        y = paddle_a.ycor()
+        y += 20
+        if (y > 240):
+            paddle_a.sety(240)
+        else:
+            paddle_a.sety(y)
     else:
-        paddle_a.sety(y)
+        y = paddle_b.ycor()
+        y += 20
+        if (y > 240):
+            paddle_b.sety(240)
+        else:
+            paddle_b.sety(y)
 
-def paddle_a_down():
-    y = paddle_a.ycor()
-    y -= 20
-    if (y < -240):
-        paddle_a.sety(-240)
+def paddle_down(paddle):
+    if (paddle == 1):
+        y = paddle_a.ycor()
+        y -= 20
+        if (y < -240):
+            paddle_a.sety(-240)
+        else:
+            paddle_a.sety(y)
     else:
-        paddle_a.sety(y)
-
-def paddle_b_up():
-    y = paddle_b.ycor()
-    y += 20
-    if (y > 240):
-        paddle_b.sety(240)
-    else:
-        paddle_b.sety(y)
-
-def paddle_b_down():
-    y = paddle_b.ycor()
-    y -= 20
-    if (y < -240):
-        paddle_b.sety(-240)
-    else:
-        paddle_b.sety(y)
+        y = paddle_b.ycor()
+        y -= 20
+        if (y < -240):
+            paddle_b.sety(-240)
+        else:
+            paddle_b.sety(y)
 
 # Keyboard binding
 window.listen()
-window.onkeypress(paddle_a_up, "w")
-window.onkeypress(paddle_a_down, "s")
-window.onkeypress(paddle_b_up, "Up")
-window.onkeypress(paddle_b_down, "Down")
+window.onkeypress(lambda n=1: paddle_up(n), "w")
+window.onkeypress(lambda n=1: paddle_down(n), "s")
+window.onkeypress(lambda n=2: paddle_up(n), "Up")
+window.onkeypress(lambda n=2: paddle_down(n), "Down")
 
 # Main game loop
 while True:
@@ -120,8 +120,8 @@ while True:
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 18, "normal"))
         winsound.PlaySound("point.wav", winsound.SND_ASYNC)
         # Reset ball speed
-        ball.dx = 0.3
-        ball.dy = 0.3
+        ball.dx = -0.3
+        ball.dy = -0.3
 
     if (ball.xcor() < -390):
         ball.goto(0, 0)
