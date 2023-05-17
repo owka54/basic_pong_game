@@ -103,11 +103,14 @@ while True:
         ball.sety(290)
         ball.dy *= -1
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        # Increase ball speed after collision with side
+        ball.dy *= 1.03
 
     if (ball.ycor() < -285):
         ball.sety(-285)
         ball.dy *= -1
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        ball.dy *= 1.03
 
     if (ball.xcor() > 390):
         ball.goto(0, 0)
@@ -116,6 +119,9 @@ while True:
         pen.clear()
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 18, "normal"))
         winsound.PlaySound("point.wav", winsound.SND_ASYNC)
+        # Reset ball speed
+        ball.dx = 0.3
+        ball.dy = 0.3
 
     if (ball.xcor() < -390):
         ball.goto(0, 0)
@@ -124,15 +130,19 @@ while True:
         pen.clear()
         pen.write("Player A: {}  Player B: {}".format(score_a, score_b), align="center", font=("Courier", 18, "normal"))
         winsound.PlaySound("point.wav", winsound.SND_ASYNC)
+        ball.dx = 0.3
+        ball.dy = 0.3
     
     # Paddle and ball collisions
     if (ball.xcor() > 340 and ball.xcor() < 350 and ball.ycor() < paddle_b.ycor() + 40 and ball.ycor() > paddle_b.ycor() - 40):
         ball.setx(340)
         ball.dx *= -1
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
+        # Increase ball speed after collision with paddle
+        ball.dx *= 1.03
 
     if (ball.xcor() < -340 and ball.xcor() > -350 and ball.ycor() < paddle_a.ycor() + 40 and ball.ycor() > paddle_a.ycor() - 40):
         ball.setx(-340)
         ball.dx *= -1
         winsound.PlaySound("bounce.wav", winsound.SND_ASYNC)
-
+        ball.dx *= 1.03
